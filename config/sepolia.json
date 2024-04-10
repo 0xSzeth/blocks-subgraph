@@ -1,0 +1,8 @@
+{
+  "chain": 11155111,
+  "network": "sepolia",
+  "WETH": {
+    "address": "0xc558dbdd856501fcd9aaf1e62eae57a9f0629a3c",
+    "startBlock": 0
+  }
+}

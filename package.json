@@ -1,18 +1,36 @@
 {
-  "name": "sepolia-blocks",
+  "name": "blocks-subgraph",
   "license": "UNLICENSED",
   "scripts": {
-    "codegen": "graph codegen",
-    "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ sepolia-blocks",
-    "create-local": "graph create --node http://localhost:8020/ sepolia-blocks",
-    "remove-local": "graph remove --node http://localhost:8020/ sepolia-blocks",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 sepolia-blocks",
+    "build:ethereum": "graph build subgraph.ethereum.yaml",
+    "build:arbitrum": "graph build subgraph.arbitrum.yaml",
+    "build:optimism": "graph build subgraph.optimism.yaml",
+    "build:base": "graph build subgraph.base.yaml",
+    "build:sepolia": "graph build subgraph.sepolia.yaml",
+
+    "deploy:ethereum": "graph deploy --studio ethereum-blocks subgraph.ethereum.yaml",
+    "deploy:arbitrum": "graph deploy --studio arbitrum-blocks subgraph.arbitrum.yaml",
+    "deploy:optimism": "graph deploy --studio optimism-blocks subgraph.optimism.yaml",
+    "deploy:base": "graph deploy --studio base-blocks subgraph.base.yaml",
+    "deploy:sepolia": "graph deploy --studio sepolia-blocks subgraph.sepolia.yaml",
+
+    "prepare:ethereum": "mustache ./config/ethereum.json manifest.template.yaml > subgraph.ethereum.yaml && graph codegen subgraph.ethereum.yaml --output-dir src/types/",
+    "prepare:arbitrum": "mustache ./config/arbitrum.json manifest.template.yaml > subgraph.arbitrum.yaml && graph codegen subgraph.arbitrum.yaml --output-dir src/types/",
+    "prepare:optimism": "mustache ./config/optimism.json manifest.template.yaml > subgraph.optimism.yaml && graph codegen subgraph.optimism.yaml --output-dir src/types/",
+    "prepare:base": "mustache ./config/base.json manifest.template.yaml > subgraph.base.yaml && graph codegen subgraph.base.yaml --output-dir src/types/",
+    "prepare:sepolia": "mustache ./config/sepolia.json manifest.template.yaml > subgraph.sepolia.yaml && graph codegen subgraph.sepolia.yaml --output-dir src/types/",
+    
+    "create-local": "graph create --node http://localhost:8020/ blocks",
+    "remove-local": "graph remove --node http://localhost:8020/ blocks",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blocks",
     "test": "graph test"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.69.1",
-    "@graphprotocol/graph-ts": "0.32.0"
+    "@graphprotocol/graph-ts": "0.32.0",
+    "mustache": "^4.2.0"
   },
-  "devDependencies": { "matchstick-as": "0.5.0" }
+  "devDependencies": {
+    "matchstick-as": "0.5.0"
+  }
 }

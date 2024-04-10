@@ -1,6 +1,16 @@
-type ExampleEntity @entity {
-  id: Bytes!
-  count: BigInt!
-  src: Bytes! # address
-  guy: Bytes! # address
+type Block @entity {
+  id: ID!
+  number: BigInt!
+  timestamp: BigInt!
+  parentHash: String
+  author: String
+  difficulty: BigInt
+  totalDifficulty: BigInt
+  gasUsed: BigInt
+  gasLimit: BigInt
+  receiptsRoot: String
+  transactionsRoot: String
+  stateRoot: String
+  size: BigInt
+  unclesHash: String
 }

@@ -1,0 +1,34 @@
+specVersion: 1.0.0
+description: Indexing all Block data on a variety of chains
+repository: https://github.com/0xSzeth/blocks-subgraph
+{{#graft}}
+features:
+  - grafting
+graft:
+  base: {{ graft.base }}
+  block: {{ graft.block }}
+{{/graft}}
+schema:
+  file: ./schema.graphql
+dataSources:
+  {{#WETH}}
+  - kind: ethereum
+    name: WETH
+    network: {{ network }}
+    source:
+      address: '{{ WETH.address }}'
+      abi: WETH
+      startBlock: {{ WETH.startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Block
+      abis:
+        - name: WETH
+          file: ./abis/WETH.json
+      blockHandlers:
+        - handler: handleBlock
+      file: ./src/blocks.ts
+  {{/WETH}}
